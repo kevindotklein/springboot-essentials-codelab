@@ -1,6 +1,8 @@
 package com.kevindotklein.springbootessentials.controller;
 
 import com.kevindotklein.springbootessentials.domain.Anime;
+import com.kevindotklein.springbootessentials.dto.anime.AnimePostRequestDTO;
+import com.kevindotklein.springbootessentials.dto.anime.AnimePutRequestDTO;
 import com.kevindotklein.springbootessentials.service.AnimeService;
 import com.kevindotklein.springbootessentials.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,8 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime){
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestDTO data){
+        Anime anime = new Anime(data);
         return new ResponseEntity<>(this.animeService.save(anime), HttpStatus.CREATED);
     }
 
@@ -42,8 +44,10 @@ public class AnimeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping
-    public ResponseEntity<Void> update(@RequestBody Anime anime){
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody AnimePutRequestDTO data){
+        Anime anime = this.animeService.findById(id);
+        anime.updateAllAttributes(data.name());
         this.animeService.update(anime);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
