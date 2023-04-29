@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +33,9 @@ public class AnimeService {
 
     public void update(Anime anime) {
         this.animeRepository.save(anime);
+    }
+
+    public List<Anime> findByName(String name) {
+        return this.animeRepository.findByName(name);
     }
 }

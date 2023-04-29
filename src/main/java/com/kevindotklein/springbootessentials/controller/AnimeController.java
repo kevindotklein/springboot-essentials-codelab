@@ -3,6 +3,7 @@ package com.kevindotklein.springbootessentials.controller;
 import com.kevindotklein.springbootessentials.domain.Anime;
 import com.kevindotklein.springbootessentials.dto.anime.AnimePostRequestDTO;
 import com.kevindotklein.springbootessentials.dto.anime.AnimePutRequestDTO;
+import com.kevindotklein.springbootessentials.mapper.AnimeMapper;
 import com.kevindotklein.springbootessentials.service.AnimeService;
 import com.kevindotklein.springbootessentials.util.DateUtil;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +29,18 @@ public class AnimeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Anime> get(@PathVariable Long id){
+    public ResponseEntity<Anime> getById(@PathVariable Long id){
         return ResponseEntity.ok(this.animeService.findById(id));
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<Anime>> getByName(@RequestParam(name = "name") String name){
+        return ResponseEntity.ok(this.animeService.findByName(name));
     }
 
     @PostMapping
     public ResponseEntity<Anime> save(@RequestBody AnimePostRequestDTO data){
-        Anime anime = new Anime(data);
+        Anime anime = AnimeMapper.INSTANCE.toAnime(data);
         return new ResponseEntity<>(this.animeService.save(anime), HttpStatus.CREATED);
     }
 
@@ -46,9 +52,11 @@ public class AnimeController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody AnimePutRequestDTO data){
-        Anime anime = this.animeService.findById(id);
-        anime.updateAllAttributes(data.name());
+        Anime anime = AnimeMapper.INSTANCE.toAnime(data);
+        anime.setId(this.animeService.findById(id).getId());
         this.animeService.update(anime);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }
