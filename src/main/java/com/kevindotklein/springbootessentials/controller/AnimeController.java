@@ -6,6 +6,7 @@ import com.kevindotklein.springbootessentials.dto.anime.AnimePutRequestDTO;
 import com.kevindotklein.springbootessentials.mapper.AnimeMapper;
 import com.kevindotklein.springbootessentials.service.AnimeService;
 import com.kevindotklein.springbootessentials.util.DateUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -39,7 +40,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestDTO data){
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestDTO data){
         Anime anime = AnimeMapper.INSTANCE.toAnime(data);
         return new ResponseEntity<>(this.animeService.save(anime), HttpStatus.CREATED);
     }
