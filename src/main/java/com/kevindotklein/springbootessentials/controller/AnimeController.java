@@ -5,11 +5,8 @@ import com.kevindotklein.springbootessentials.dto.anime.AnimePostRequestDTO;
 import com.kevindotklein.springbootessentials.dto.anime.AnimePutRequestDTO;
 import com.kevindotklein.springbootessentials.mapper.AnimeMapper;
 import com.kevindotklein.springbootessentials.service.AnimeService;
-import com.kevindotklein.springbootessentials.util.DateUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +17,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/animes")
-@Log4j2
 public class AnimeController {
 
-    private final DateUtil dateUtil;
     private final AnimeService animeService;
 
     @GetMapping
