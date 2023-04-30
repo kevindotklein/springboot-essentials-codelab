@@ -9,6 +9,7 @@ import lombok.*;
 @Setter
 @Data
 @Entity
+@Builder
 public class Anime {
 
     @Id

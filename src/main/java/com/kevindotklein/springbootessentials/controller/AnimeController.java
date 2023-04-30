@@ -27,8 +27,8 @@ public class AnimeController {
     private final AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<Page<Anime>> getAll(Pageable pageable){
-        return ResponseEntity.ok(this.animeService.findAll(pageable));
+    public ResponseEntity<List<Anime>> getAll(Pageable pageable){
+        return ResponseEntity.ok(this.animeService.findAll(pageable).getContent());
     }
 
     @GetMapping("/{id}")
