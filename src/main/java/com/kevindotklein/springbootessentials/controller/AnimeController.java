@@ -9,6 +9,8 @@ import com.kevindotklein.springbootessentials.util.DateUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +27,8 @@ public class AnimeController {
     private final AnimeService animeService;
 
     @GetMapping
-    public ResponseEntity<List<Anime>> getAll(){
-        return ResponseEntity.ok(this.animeService.findAll());
+    public ResponseEntity<Page<Anime>> getAll(Pageable pageable){
+        return ResponseEntity.ok(this.animeService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
