@@ -1,4 +1,4 @@
-package com.kevindotklein.springbootessentials.config;
+package com.kevindotklein.springbootessentials.mvcconfig;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
