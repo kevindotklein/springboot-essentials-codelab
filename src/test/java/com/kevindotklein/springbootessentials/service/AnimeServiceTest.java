@@ -155,7 +155,7 @@ class AnimeServiceTest {
 
         Assertions.assertThatExceptionOfType(BadRequestException.class)
                 .isThrownBy(() -> this.animeService.findById(1L));
-  
+
     }
 
 }
